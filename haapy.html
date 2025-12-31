@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 | For My Bubbu</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@200;400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #D4AF37;
+            --bg: #080808;
+            --romance: #ff4d6d;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            background: var(--bg);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden; height: 100vh;
+        }
+
+        .petal {
+            position: fixed; color: var(--romance);
+            user-select: none; z-index: 0; pointer-events: none;
+        }
+
+        .nav-dots {
+            position: fixed; right: 20px; top: 50%;
+            transform: translateY(-50%); z-index: 100;
+            display: flex; flex-direction: column; gap: 15px;
+        }
+        .dot {
+            width: 8px; height: 8px; border: 1px solid var(--accent);
+            border-radius: 50%; transition: 0.3s; cursor: pointer;
+        }
+        .dot.active { background: var(--romance); height: 20px; border-radius: 10px; border-color: var(--romance); }
+
+        .page {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; justify-content: center; align-items: center;
+            visibility: hidden; opacity: 0; padding: 20px; box-sizing: border-box;
+            z-index: 1;
+        }
+        .page.active { visibility: visible; opacity: 1; }
+
+        .content-box { max-width: 550px; width: 100%; text-align: center; }
+
+        h1 { font-family: 'Cinzel', serif; letter-spacing: 6px; color: var(--accent); text-transform: uppercase; margin: 10px 0; }
+        .blush-text { font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: var(--romance); }
+        .subtitle { font-size: 0.7rem; letter-spacing: 4px; opacity: 0.6; margin-bottom: 20px; text-transform: uppercase; }
+
+        .meaning-list { text-align: left; margin: 30px 0; border-left: 1px solid var(--accent); padding-left: 20px; }
+        .meaning-item { margin-bottom: 25px; opacity: 0; transform: translateX(20px); }
+        .meaning-item b { font-family: 'Cinzel'; color: var(--accent); display: block; letter-spacing: 1px; font-size: 1rem; }
+        .meaning-item span { font-size: 0.95rem; font-weight: 200; color: #ddd; line-height: 1.5; display: block; margin-top: 5px; }
+
+        #timer { font-family: 'Cinzel', serif; font-size: 2.8rem; margin: 20px 0; color: #fff; text-shadow: 0 0 10px rgba(212,175,55,0.3); }
+        .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 30px 0; }
+        .frame { border: 1px solid rgba(212, 175, 55, 0.3); height: 180px; overflow: hidden; position: relative; }
+        .frame img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.8); transition: 0.5s; }
+
+        .letter-text {
+            font-weight: 200; line-height: 1.8; text-align: center;
+            min-height: 200px; font-size: 1.1rem; color: #eee;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .nav-btn {
+            background: none; border: 1px solid var(--accent);
+            color: var(--accent); padding: 12px 30px; cursor: pointer;
+            margin-top: 20px; font-size: 0.7rem; letter-spacing: 2px;
+            text-transform: uppercase; transition: 0.4s;
+        }
+        .nav-btn:hover { background: var(--romance); color: #fff; border-color: var(--romance); }
+    </style>
+</head>
+<body>
+
+    <div class="nav-dots">
+        <div class="dot active" data-page="0"></div>
+        <div class="dot" data-page="1"></div>
+        <div class="dot" data-page="2"></div>
+        <div class="dot" data-page="3"></div>
+    </div>
+
+    <section class="page active" id="page-0">
+        <div class="content-box">
+            <div class="subtitle">Naye saal ka intezaar, sirf tumhare saath</div>
+            <h1>2026</h1>
+            <div id="timer">00 : 00 : 00</div>
+            <p class="blush-text">Bas tumhari yaad mein...</p>
+            <button class="nav-btn" onclick="goToPage(1)">Click Karo, Bubbu</button>
+        </div>
+    </section>
+
+    <section class="page" id="page-1">
+        <div class="content-box">
+            <div class="subtitle">Alag hain par saath hain</div>
+            <h1>Our Connection</h1>
+            <div class="photo-grid">
+                <div class="frame"><img src="your-photo.jpg" alt="Me"></div>
+                <div class="frame"><img src="bubbu-photo.jpg" alt="Bubbu"></div>
+            </div>
+            <p style="font-style: italic; color: var(--romance);">Sabar ka phal humari pehli photo hogi ??</p>
+            <button class="nav-btn" onclick="goToPage(2)">You mean so much</button>
+        </div>
+    </section>
+
+    <section class="page" id="page-2">
+        <div class="content-box">
+            <div class="subtitle">Tum mere liye kya ho?</div>
+            <h1>For My Bubbu</h1>
+            <div class="meaning-list">
+                <div class="meaning-item"><b>Meri Sukoon</b><span>Poore din ki thakann ke baad, tumse baat karke jo sukoon milta hai, woh kahin aur nahi.</span></div>
+                <div class="meaning-item"><b>Meri Sabse Badi Khushi</b><span>2025 mein bohot kuch hua, par tumhara meri life mein hona sabse best part tha.</span></div>
+                <div class="meaning-item"><b>Mera Future</b><span>2026 ke har ek sapne mein tum mere saath ho. Tumhare bina sab adhura hai.</span></div>
+               <div class="meaning-item"><b>Lifeline</b><span>ap to meri Lifeline ho meri cute si pyari si cute si bby </span>
+            </div>
+            <button class="nav-btn" onclick="goToPage(3)">Read My Heart</button>
+        </div>
+    </section>
+
+    <section class="page" id="page-3">
+        <div class="content-box">
+            <div class="subtitle">Mere Dil Ki Baat</div>
+            <h1>To My Love</h1>
+            <div class="letter-text" id="typewriter"></div>
+            <button class="nav-btn" style="border:none; font-size:0.5rem; opacity:0.5; margin-top:40px;" onclick="goToPage(0)">Restart Our Journey</button>
+        </div>
+    </section>
+
+    <script>
+        let currentPage = 0;
+        const pages = document.querySelectorAll('.page');
+        const dots = document.querySelectorAll('.dot');
+        const fullLetter = "Bubbu, log kehte hain ki waqt guzar jata hai, par sach toh ye hai ki tumhare saath bitaya hua har ek second mere dil mein hamesha ke liye freeze ho gaya hai. 2024 mere liye sirf ek saal nahi tha, ye woh safar tha jisme mujhe tum mili—meri life ka sabse khoobsurat chapter Pata hai? Kabhi-kabhi lagta hai ki tum koi khwaab ho jise main har subah sach hote dekhta hoon. Tumhari awaaz sun kar jo smile mere face par aati hai, woh mere liye duniya ki sabse mehngi cheez hai. Humari photo bhale hi aaj screen par alag-alag ho, par mere har khwaab aur meri har ek saans mein tum mere bilkul paas ho .2026 is going to be our year—jahan 'Main' aur 'Tum' nahi, sirf 'Hum' honge. I promise to be your sukoon in every chaos. Naye saal mein mera pyaar aur mera haq, dono tum par double hone waale hain. Taiyaar rehna, kyunki 2026 mein tumhe itna pyaar dunga ki tum blush karte-karte thak jaogi, par main tumhe chahne se kabhi nahi thakunga. Tum meri ho, aur hamesha rahogi. Happy New Year, my wifey! ❤️";
+
+        function goToPage(index) {
+            if(index === currentPage) return;
+            const currentEl = pages[currentPage];
+            const nextEl = pages[index];
+
+            anime({
+                targets: currentEl,
+                opacity: 0,
+                translateY: -20,
+                duration: 600,
+                easing: 'easeInOutQuad',
+                complete: () => {
+                    currentEl.classList.remove('active');
+                    nextEl.classList.add('active');
+                    dots[currentPage].classList.remove('active');
+                    dots[index].classList.add('active');
+                    currentPage = index;
+
+                    anime({
+                        targets: nextEl,
+                        opacity: [0, 1],
+                        translateY: [20, 0],
+                        duration: 800,
+                        easing: 'easeOutExpo'
+                    });
+
+                    if(index === 2) {
+                        anime({
+                            targets: '.meaning-item',
+                            opacity: [0, 1],
+                            translateX: [30, 0],
+                            delay: anime.stagger(400),
+                            duration: 1200,
+                            easing: 'easeOutExpo'
+                        });
+                    }
+                    if(index === 3) typeLetter();
+                }
+            });
+        }
+
+        function typeLetter() {
+            const el = document.getElementById('typewriter');
+            el.innerHTML = "";
+            let i = 0;
+            function type() {
+                if (i < fullLetter.length) {
+                    el.innerHTML += fullLetter.charAt(i);
+                    i++;
+                    setTimeout(type, 40);
+                } else {
+                    // Explosion happens automatically after typing
+                    setTimeout(triggerLoveExplosion, 500);
+                }
+            }
+            type();
+        }
+
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.innerHTML = '❤️';
+            petal.className = 'petal';
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.top = '-5vh';
+            petal.style.fontSize = Math.random() * 15 + 10 + 'px';
+            document.body.appendChild(petal);
+            anime({
+                targets: petal,
+                top: '105vh',
+                left: `+=${Math.random() * 100 - 50}px`,
+                rotate: Math.random() * 360,
+                duration: Math.random() * 3000 + 5000,
+                easing: 'linear',
+                complete: () => petal.remove()
+            });
+        }
+        setInterval(createPetal, 700);
+
+        function triggerLoveExplosion() {
+            for(let i=0; i<60; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '??';
+                heart.style.position = 'fixed';
+                heart.style.left = '50vw';
+                heart.style.top = '50vh';
+                heart.style.zIndex = '1000';
+                document.body.appendChild(heart);
+                anime({
+                    targets: heart,
+                    translateX: () => anime.random(-600, 600),
+                    translateY: () => anime.random(-600, 600),
+                    opacity: [1, 0],
+                    scale: [1, 2.5],
+                    duration: anime.random(1500, 2500),
+                    easing: 'easeOutExpo',
+                    complete: () => heart.remove()
+                });
+            }
+        }
+
+        function updateTimer() {
+            const target = new Date("January 1, 2026 00:00:00").getTime();
+            const now = new Date().getTime();
+            const diff = target - now;
+            if(diff < 0) { document.getElementById('timer').innerText = "HAPPY NEW YEAR BUBBU!"; return; }
+            const h = String(Math.floor((diff / (1000*60*60)) % 24)).padStart(2, '0');
+            const m = String(Math.floor((diff / 1000 / 60) % 60)).padStart(2, '0');
+            const s = String(Math.floor((diff / 1000) % 60)).padStart(2, '0');
+            document.getElementById('timer').innerText = `${h} : ${m} : ${s}`;
+        }
+        setInterval(updateTimer, 1000);
+        dots.forEach((dot, i) => dot.addEventListener('click', () => goToPage(i)));
+    </script>
+</body>
+</html>
